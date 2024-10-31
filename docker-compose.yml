@@ -1,0 +1,25 @@
+version: '1'
+services:
+  user-mangment-api:
+   build: .
+   ports : 
+   - 3005:3030
+   environment : 
+    - JWT_SECRET=secretkey
+    - MONGO_URL=mongodb://mongodb-service/e-commerce-db
+   networks:
+    - SIMvolume
+   depends_on:
+    - mongodb-service
+  mongodb-service:
+    image: mongo:2
+    ports:
+      - 3005:27017
+    volumes: 
+     - sim-commerce:/data/e-commerce-db
+    networks:
+     - sim-commerce
+volumes:
+ SIMvolume:
+networks:
+ sim-commerce:
